@@ -1,0 +1,13 @@
+resources:
+  pipelines:
+    demo_dlt_pipeline:
+      name: demo_dlt_pipeline_${bundle.target}
+      continuous: false
+      serverless: true
+
+      catalog: workspace
+      target: ${bundle.target}
+
+      libraries:
+        - file:
+            path: ../notebooks/dlt_pipeline.py
