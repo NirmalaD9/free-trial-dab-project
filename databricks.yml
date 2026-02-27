@@ -1,32 +1,59 @@
+# bundle:
+#   name: free_trial_dab_project
+
+# include:
+#   - resources/*.yml
+  
+# targets:
+
+#   dev:
+#     mode: development
+#     default: true
+#     workspace:
+#       host: https://dbc-a42d92dd-78c1.cloud.databricks.com
+#       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/dev
+#     resources:
+#       pipelines:
+#         demo_dlt_pipeline:
+#           development: true
+
+#   qa:
+#     mode: production
+#     workspace:
+#       host: https://dbc-a42d92dd-78c1.cloud.databricks.com
+#       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/qa
+
+#   prod:
+#     mode: production
+#     workspace:
+#       host: https://dbc-a42d92dd-78c1.cloud.databricks.com
+#       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/prod
+#     run_as:
+#       user_name: ${workspace.current_user.userName}
+
+
 bundle:
   name: free_trial_dab_project
 
 include:
   - resources/*.yml
-  
-targets:
 
+targets:
   dev:
+    <<: *common
     mode: development
     default: true
-    workspace:
-      host: https://dbc-a42d92dd-78c1.cloud.databricks.com
-      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/dev
-    resources:
-      pipelines:
-        demo_dlt_pipeline:
-          development: true
 
   qa:
+    <<: *common
     mode: production
-    workspace:
-      host: https://dbc-a42d92dd-78c1.cloud.databricks.com
-      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/qa
 
   prod:
+    <<: *common
     mode: production
-    workspace:
-      host: https://dbc-a42d92dd-78c1.cloud.databricks.com
-      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/prod
-    run_as:
-      user_name: ${workspace.current_user.userName}
+
+# Common configuration anchor
+common: &common
+  workspace:
+    host: ${var.workspace_host}
+    root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
