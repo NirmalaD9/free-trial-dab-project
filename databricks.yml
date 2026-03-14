@@ -38,7 +38,14 @@ bundle:
 include:
   - resources/*.yml
 
+# reusable configuration
+common: &common
+  workspace:
+    host: ${var.workspace_host}
+    root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
 targets:
+
   dev:
     <<: *common
     mode: development
@@ -52,8 +59,5 @@ targets:
     <<: *common
     mode: production
 
-# Common configuration anchor
-common: &common
-  workspace:
-    host: ${var.workspace_host}
-    root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+

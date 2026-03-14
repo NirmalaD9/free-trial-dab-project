@@ -1,14 +1,16 @@
 resources:
   jobs:
-    demo_job:
-      name: demo_job_${bundle.target}
+    auto_pipeline_job:
+      name: auto_pipeline_job_${bundle.target}
+
+      schedule:
+        quartz_cron_expression: "0 */30 * * * ?"
+        timezone_id: Asia/Kolkata
+        pause_status: UNPAUSED
 
       tasks:
         - task_key: run_job_notebook
           notebook_task:
             notebook_path: ../notebooks/job_notebook.py
-
-      environments:
-        - environment_key: default_env
-          spec:
-            client: "1"
+            base_parameters:
+              target: ${bundle.target}

@@ -1,8 +1,9 @@
 resources:
   pipelines:
-    demo_dlt_pipeline:
-      name: demo_dlt_pipeline_${bundle.target}
-      continuous: false
+    auto_dlt_pipeline:
+      name: auto_dlt_pipeline_${bundle.target}
+
+      continuous: true
       serverless: true
 
       catalog: workspace
