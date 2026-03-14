@@ -33,7 +33,7 @@
 
 
 bundle:
-  name: free_trial_dab_project
+  name: free_trial_dab_projects
 
 include:
   - resources/*.yml
@@ -41,7 +41,6 @@ include:
 # reusable configuration
 common: &common
   workspace:
-    host: ${var.workspace_host}
     root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
 
 targets:
@@ -58,6 +57,3 @@ targets:
   prod:
     <<: *common
     mode: production
-
-
-
